@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+echo "Creating new static homepages for users: $@"
+for F in $@; 
+	do mkdir /home/$F/public_html/; 
+	echo "This is the homepage of $F" |tee /home/$F/public_html/index.html
+	#rm -r /home/$F/public_html/ #removes the created directories
+done
+
+#ls /home/$1/public_html #lists the created content
