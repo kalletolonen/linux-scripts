@@ -1,0 +1,39 @@
+#!/usr/bin/bash
+
+curr_dir=$(pwd)
+cd /c/Users/kalle.tolonen/ratko
+
+if [ -d "ratko-backend" ]; then
+  cd /c/Users/kalle.tolonen/ratko/ratko-backend
+  branch=$(git branch --show-current)
+  echo "Updating ratko-backend (branch: $branch)"
+  git pull
+  cd ..
+else
+  echo "ratko-backend directory not found"
+fi
+
+
+if [ -d "ratko-frontend" ]; then
+  cd /c/Users/kalle.tolonen/ratko/ratko-frontend
+  branch=$(git branch --show-current)
+  echo "Updating ratko-frontend (branch: $branch)"
+  git pull
+  cd ..
+else
+  echo "ratko-frontend directory not found"
+fi
+
+
+if [ -d "ratko-ui-backend" ]; then
+  cd /c/Users/kalle.tolonen/ratko/ratko-ui-backend
+  branch=$(git branch --show-current)
+  echo "Updating ratko-ui-backend (branch: $branch)"
+  git pull
+  cd ..
+else
+  echo "ratko-ui-backend directory not found"
+fi
+
+cd "$curr_dir"
+
