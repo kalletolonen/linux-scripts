@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+
+rsync -aP ui-common/ ratko-frontend/
