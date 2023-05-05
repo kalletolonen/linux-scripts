@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-
+#version=3 
 root="/c/Users/kalle.tolonen/ratko"
 be="ratko-backend"
 ui_be="ratko-ui-backend"
