@@ -1,0 +1,39 @@
+name: Lint migrations
+
+# Only run the linting, if the push has changes in migration directories
+on:
+  push:
+    paths:
+      - 'src/main/resources/db/migration/postgis/**'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+
+      - name: Install sqlfluff
+        run: pip install sqlfluff
+
+      - name: Fetch all branches and tags
+        run: git fetch --prune --unshallow
+
+      - name: Get SQL file paths
+        id: sql-paths
+        run: |
+          files=$(git show --pretty="" --name-only ${{ github.sha }} | grep '\.sql$')
+          echo "::set-output name=paths::$files"
+
+      - name: Lint SQL files
+        run: |
+            paths=${{ steps.sql-paths.outputs.paths }}
+            for path in $paths; do
+              echo "Linting file: $path"
+              fixed_path=$(echo "$path" | sed 's/my-backend\///')
+              sqlfluff lint $GITHUB_WORKSPACE/$fixed_path --dialect postgres
+            done

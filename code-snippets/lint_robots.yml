@@ -1,0 +1,16 @@
+name: Run linter on changes in robot/-folder and subfolders
+
+on:
+  push:
+    paths:
+      - 'robot/**'
+
+jobs:
+  robocop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Robocop
+      run: pip install robotframework-robocop
+    - name: Run Robocop
+      run: robocop --report all -A ./robot/my_rules.cfg ./robot
