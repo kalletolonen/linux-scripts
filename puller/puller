@@ -1,26 +1,34 @@
 #!/usr/bin/bash
-#version=3 
+#version=4
 root="/c/Users/kalle.tolonen/ratko"
 be="ratko-backend"
 ui_be="ratko-ui-backend"
 fe="ratko-frontend"
-this_directory=$pwd
+this_directory=$(pwd)
+declare -a branch_names
 
-cd $root/$be
-branch=$(git branch --show-current)
-echo -e "Updating $be (branch: \033[32m$branch\033[0m)"
-git pull
+update_and_record_branch() {
+  local component=$1
+  cd "$root/$component"
+  local branch=$(git branch --show-current)
+  branch_names+=("$component: $branch")
+  echo -e "Updating $component (branch: \033[32m$branch\033[0m)"
+  git pull
+}
 
-cd $root/$ui_be
-branch=$(git branch --show-current)
-echo -e "Updating $ui_be (branch: \033[32m$branch\033[0m)"
-git pull
+update_and_record_branch "$be"
+update_and_record_branch "$ui_be"
+update_and_record_branch "$fe"
 
-cd $root/$fe
-branch=$(git branch --show-current)
-echo -e "Updating $fe (branch: \033[32m$branch\033[0m)"
-git pull
+echo -e
+echo -e "Current branch:"
+for branch in "${branch_names[@]}"; do
+  # Extract the component name and the branch name
+  component=$(echo $branch | cut -d ':' -f 1)
+  branch_name=$(echo $branch | cut -d ':' -f 2)
+  
+  # Print the component name in default color and the branch name in green
+  echo -e "$component: \033[32m$branch_name\033[0m"
+done
 
-cd $this_directory
-
-
+cd "$this_directory"
