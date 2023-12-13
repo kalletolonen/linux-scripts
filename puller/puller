@@ -23,11 +23,9 @@ update_and_record_branch "$fe"
 echo -e
 echo -e "Current branch:"
 for branch in "${branch_names[@]}"; do
-  # Extract the component name and the branch name
   component=$(echo $branch | cut -d ':' -f 1)
   branch_name=$(echo $branch | cut -d ':' -f 2)
   
-  # Print the component name in default color and the branch name in green
   echo -e "$component: \033[32m$branch_name\033[0m"
 done
 
