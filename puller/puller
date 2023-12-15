@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-#version=4
+#version=5
 root="/c/Users/kalle.tolonen/ratko"
 be="ratko-backend"
 ui_be="ratko-ui-backend"
@@ -12,7 +12,7 @@ update_and_record_branch() {
   cd "$root/$component"
   local branch=$(git branch --show-current)
   branch_names+=("$component: $branch")
-  echo -e "Updating $component (branch: \033[32m$branch\033[0m)"
+  echo -e "Updating \033[44m$component\033[0m"
   git pull
 }
 
