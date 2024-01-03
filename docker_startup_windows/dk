@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo service docker start
+docker-compose -f /c/Users/kalle.tolonen/ratko/ratko-backend/src/docker/docker-compose-dev.yml up -d --no-recreate ratko-database
+docker-compose -f /c/Users/kalle.tolonen/ratko/ratko-ui-backend/src/docker/docker-compose-postgis-dev.yml up -d --no-recreate ratko-ui-database
+
+docker ps -a
