@@ -19,7 +19,7 @@
 """
 Diff Tool for Robot Framework Outputs
 
-Usage:  robotdiff.py [options] input_files
+Usage:  robotdiff.py output1.xml output2.xml -r hello_world.html
 
 This script compares two or more Robot Framework output files and creates a
 report where possible differences between test case statuses in each file
